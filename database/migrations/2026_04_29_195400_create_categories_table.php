@@ -9,21 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('categores', function (Blueprint $table) {
-            $table->id();
+   public function up(): void
+{
+    Schema::create('categories', function (Blueprint $table) {
+        $table->id();
 
-    $table->foreignId('shop_id')
-          ->constrained()
-          ->cascadeOnDelete();
+        $table->string('name');
+        $table->text('description')->nullable();
 
-    $table->string('name');
-    $table->text('description')->nullable();
-
-    $table->unique(['shop_id', 'name']);
-        });
-    }
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.

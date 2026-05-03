@@ -11,11 +11,11 @@ class shops extends Model
 use HasFactory;
     //
     protected $fillable = [
-        "user_id",
-        "shop_name",
-        "shop_slug",
-        "description",
-        "logo_url"
+        'shop_name',
+        'shop_slug',
+        'description',
+        'logo_url',
+        'user_id'
     ];
     
       // Relations

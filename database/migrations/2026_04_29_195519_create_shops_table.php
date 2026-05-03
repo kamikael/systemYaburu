@@ -14,16 +14,16 @@ return new class extends Migration
         Schema::create('shops', function (Blueprint $table) {
             $table->id();
 
-    $table->foreignId('user_id')
-          ->constrained()
-          ->cascadeOnDelete();
+            $table->foreignId('user_id')
+                  ->constrained()
+                  ->cascadeOnDelete();
 
-    $table->string('shop_name');
-    $table->string('shop_slug')->unique();
-    $table->text('description')->nullable();
-    $table->string('logo_url')->nullable();
+            $table->string('shop_name');
+            $table->string('shop_slug')->unique();
+            $table->text('description')->nullable();
+            $table->string('logo_url')->nullable();
 
-    $table->timestamps();
+            $table->timestamps();
         });
     }
 

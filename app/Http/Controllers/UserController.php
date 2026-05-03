@@ -15,14 +15,15 @@ class UserController extends Controller
   $user = User::findOrFail($id);
 
   if(auth()->user()->id !== (int)$id){
-    return respoense()->json(["message"=>"non autorisé"], 403);
+    return response()->json(["message"=>"non autorisé"], 403);
   }
 
   return response()->json($user);
 
   }
 
-  public function update(Request $request){
+  public function update(Request $request, $id){
+
     $user = User::findOrFail($id);
 
     if(auth()->user()->id !== (int)$id){
@@ -33,7 +34,7 @@ class UserController extends Controller
         "email"=>"sometimes|email|unique:users.email" . $id,
     ]);
 
-    $user->update($request);
+    $user->update((array)$request, $id);
 
     return  response()->json([ "message"=> "profil mis à jour ", "user"=> $user]);
 
