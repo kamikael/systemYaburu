@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+//fproduct
 class Product extends Model
 {
     protected $fillable = [
