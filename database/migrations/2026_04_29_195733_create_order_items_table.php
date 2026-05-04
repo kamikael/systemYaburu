@@ -24,6 +24,7 @@ return new class extends Migration
     $table->integer('quantity');
     $table->decimal('unit_price', 10, 2);
         });
+     $table->timestamps();
     }
 
     /**
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('items_commandes');
+        Schema::dropIfExists('order_items');
     }
 };

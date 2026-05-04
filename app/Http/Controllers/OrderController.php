@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\OrderItem;
+use App\Models\Order_item;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -32,7 +32,7 @@ class OrderController extends Controller
             'shop_id' => $shop_id,
             'customer_name' => $data['customer_name'],
             'customer_email' => $data['customer_email'],
-            'total' => 0,
+            'total_amount' => 0,
             'status' => 'pending'
         ]);
 
@@ -49,11 +49,11 @@ class OrderController extends Controller
             $subtotal = $product->price * $item['quantity'];
             $total += $subtotal;
 
-            OrderItem::create([
+            Order_item::create([
                 'order_id' => $order->id,
                 'product_id' => $product->id,
                 'quantity' => $item['quantity'],
-                'price' => $product->price
+                'unit_price' => $product->price
             ]);
 
             // 🔥 réduire stock

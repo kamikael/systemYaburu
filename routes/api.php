@@ -6,7 +6,9 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +18,7 @@ use App\Http\Controllers\CategoriesController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/shops/{id}/orders', [OrderController::class, 'store']);
 
 /*
 |--------------------------------------------------------------------------
@@ -45,8 +48,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/users/{id}/shops', [ShopController::class, 'userShops']);
 
     // 📦 Products
-    Route::apiResource('products', ProductController::class);
+    Route::apiResource('shops.products', ProductController::class);
 
     // 🗂️ Categories
-    Route::apiResource('categories', CategoriesController::class);
+    Route::apiResource('shops.category', CategoryController::class);
+
+    // 👤 orders
+    Route::get('/shops/{id}/orders', [OrderController::class, 'index']);
+    Route::get('/shops/{shop_id}/orders/{id}', [OrderController::class, 'show']);
+    Route::post('/shops/{shop_id}/orders/{id}', [OrderController::class, 'updateStatus']);
+    Route::delete('/shops/{shop_id}/orders/{id}', [OrderController::class, 'destroy']);
+
+
 });
