@@ -12,18 +12,42 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-           $table->id();
 
-    $table->foreignId('shop_id')
-          ->constrained()
-          ->cascadeOnDelete();
+            $table->id();
 
-    $table->string('customer_email');
-    $table->string('customer_name');
-    $table->decimal('total_amount', 10, 2);
-    $table->enum('status', ['pending', 'completed', 'canceled'])->default('pending');
+            $table->decimal('amount_total', 10, 2);
 
-    $table->timestamps();
+            $table->string('order_number')->unique();
+
+            $table->string('transaction_id')->nullable();
+
+            $table->string('transaction_status')->default('pending');
+
+            $table->string('payment_method')->nullable();
+
+            $table->string('client_firstname');
+
+            $table->string('client_lastname')->nullable();
+
+            $table->string('client_email')->nullable();
+
+            $table->string('client_phone');
+
+            $table->string('client_contact')->nullable();
+
+            $table->string('client_country')->nullable();
+
+            $table->string('client_district')->nullable();
+
+            $table->string('client_city')->nullable();
+
+            $table->text('client_address')->nullable();
+
+            $table->foreignId('store_id')
+                ->constrained()
+                ->cascadeOnDelete();
+
+            $table->timestamps();
         });
     }
 

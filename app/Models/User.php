@@ -11,27 +11,18 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-#[Fillable(['name', 'email', 'password'])]
-#[Hidden(['password', 'remember_token'])]
 
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $fillable = [
-       "email",
-       "name",
-       "password"
-    ];
+    protected $fillable = ['lastname', 'firstname', 'fedapay_id', 'email', 'password', 'phone', 'remember_token'];
 
-    protected $hidden = [
-        "password",
-    ];
+    protected $hidden =['password', 'remember_token'];
 
     /**
      * Get the attributes that should be cast.
-     *
      * @return array<string, string>
      */
     protected function casts(): array
@@ -43,8 +34,18 @@ class User extends Authenticatable
     }
 
 
-    public function shops()
+    public function accounts()
+{
+    return $this->belongsToMany(
+        Account::class,
+        'user_accounts',
+        'user_id',
+        'account_id'
+    );
+}
+
+    public function stores()
     {
-        return $this->hasMany(Shop::class);
+        return $this->hasMany(Store::class);
     }
 }

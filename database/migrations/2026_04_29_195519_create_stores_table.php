@@ -11,17 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shops', function (Blueprint $table) {
+        Schema::create('stores', function (Blueprint $table) {
+
             $table->id();
 
-            $table->foreignId('user_id')
-                  ->constrained()
-                  ->cascadeOnDelete();
+            $table->string('slug')->unique();
 
-            $table->string('shop_name');
-            $table->string('shop_slug')->unique();
-            $table->text('description')->nullable();
-            $table->string('logo_url')->nullable();
+            $table->foreignId('account_id')
+                ->constrained()
+                ->cascadeOnDelete();
+
+            $table->string('name');
+
+            $table->string('domain')->nullable();
+
+            $table->string('domain_alias')->nullable();
 
             $table->timestamps();
         });
@@ -32,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shops');
+        Schema::dropIfExists('stores');
     }
 };
